@@ -57,7 +57,7 @@
 
         <!-- show data -->
         <div id="tableSection">
-            <IndexComponent :columns="indexColumns" :actions="actions" :users="localData.gw" @showData="show" @DeleteItem="DeleteItem" @editUser="getEditForm" />
+            <IndexComponent @orderIndex="orderIndex" :columns="indexColumns" :actions="actions" :users="localData.gw" @showData="show" @DeleteItem="DeleteItem" @editUser="getEditForm" />
         </div>
 
         <!-- pagination -->
@@ -147,26 +147,31 @@ export default {
                 {
                     name : 'ID' ,
                     column : 'id',
+                    order : '',
                     if : false,
                 },
                 {
                     name : 'Name' ,
                     column : 'name',
+                    order : '',
                     if : false,
                 },
                 {
                     name : 'Email' ,
                     column : 'email',
+                    order : '',
                     if : false,
                 },
                 {
                     name : 'Is Admin ?!' ,
                     column : 'role',
+                    order : '',
                     if : true,
                 },
                 {
                     name : 'Last Update',
                     column : 'updated_at' , 
+                    order : '',
                     if : false,
                 }
             ],
@@ -224,6 +229,32 @@ export default {
             this.localData.search = this.search;
             this.localData.urls = this.urls;
         },
+
+        orderIndex(data){
+            this.indexColumns = this.indexColumns.map(item => {
+                if(item.column == data.column){
+                    if(data.type == 'DESC'){
+                        item.order = 'ASC';
+                    }else{
+                        item.order = 'DESC';
+                    }
+                }
+                return item;
+            });
+
+            axios.get(`${this.search.searchUrl}?order=${data.column}&orderBy=${data.type}&api=1`)
+            .then(r => {
+                let data = r.data;
+                this.localData.gw = data.gw;
+                this.localData.pagination = data.pagination;
+                this.localData.search = data.search;
+                this.localData.urls = data.urls;
+                this.$forceUpdate();
+            }).catch(e => {
+                console.log(e);
+            });
+        },
+        
         store(data){
             axios.post(this.urls.addUrl , data)
             .then(r => {

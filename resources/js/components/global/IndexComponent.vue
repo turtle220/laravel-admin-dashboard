@@ -4,8 +4,21 @@
             <table class="table table-hover table-bordered table-striped table-dark">
                 <thead>
                     <tr>
-                        <th v-for="c in columns" v-bind:key="c.name">
-                            {{c.name}}
+                        <th v-for="c in columns" v-bind:key="c.name" @click="order(c.column , c.order.length > 0 ? c.order : 'ASC')">
+                            {{c.name}} 
+                            
+                            <span class="order" v-if="c.order.length == 0">
+                                <i class="fa fa-sort"></i>
+                            </span>
+
+                            <span class="order_up" v-if="c.order == 'ASC'">
+                                <i class="fa fa-arrow-up"></i>
+                            </span>
+
+                            <span class="order_down" v-if="c.order == 'DESC'">
+                                <i class="fa fa-arrow-down"></i>
+                            </span>
+
                         </th>
                         <th v-if="actions.length > 0">Actions</th>
                     </tr>
@@ -70,6 +83,12 @@ export default {
             }).catch(e => {
                 console.log(e);
             });
+        },
+        order(column , type){
+            this.$emit('orderIndex' , {
+                column : column , 
+                type : type
+            });
         }
     },
     watch : {
@@ -81,6 +100,11 @@ export default {
 }
 </script>
 
-<style lang="scss">
-
+<style lang="scss" scoped>
+th{
+    cursor: pointer;
+}
+.hide{
+    display : none;
+}
 </style>
