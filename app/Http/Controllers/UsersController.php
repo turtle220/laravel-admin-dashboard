@@ -196,7 +196,13 @@ class UsersController extends Controller
      * export all 
      */
     public function exportAll(){
-        $data  = json_encode($this->database::all());
+        $users = collect($this->database::all())->map(function($item){
+            $pw = $item->getAuthPassword();
+            $item = json_decode(json_encode($item) , true);
+            $item['password'] = $pw; 
+            return $item;
+        });
+        $data  = json_encode($users);
 
         $files = glob(public_path()."/upload/json/*"); // get all file names
 
@@ -225,7 +231,7 @@ class UsersController extends Controller
     public function importJson(Request $request){
         $allData = json_decode(file_get_contents($request->file('file')->getRealPath()) , true);
         foreach($allData as $data){
-            $checker = $this->database::where('name' , '=' , $data['name'])->get();
+            $checker = $this->database::where('email' , '=' , $data['email'])->get();
 
             if($checker->count() > 0){
                 continue;

@@ -129,6 +129,7 @@ export default {
                 successMessages : [],
                 errorMessages : [],
             },
+            csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             addForm : false,
             editForm : false,
             showComponent : false,

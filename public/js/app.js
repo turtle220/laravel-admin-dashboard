@@ -1975,6 +1975,7 @@ __webpack_require__.r(__webpack_exports__);
         successMessages: [],
         errorMessages: []
       },
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       addForm: false,
       editForm: false,
       showComponent: false,

@@ -43,5 +43,5 @@ Route::group(['middleware' => ['\App\Http\Middleware\Admin']] , function(){
     // export
     Route::get('/users/export/all' , 'UsersController@exportAll')->name('users.export');
     // import
-    Route::get('/users/import' , 'UsersController@importJson')->name('users.import');
+    Route::post('/users/import' , 'UsersController@importJson')->name('users.import');
 });
