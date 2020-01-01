@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-md-3" @click="hideAddComponent"></div>
                     <div class="col-md-6">
-                        <add-component @storeData="store"></add-component>
+                        <add-component :show-details="showDetails" :form-details="formDetails" @storeData="store"></add-component>
                     </div>
                     <div class="col-md-3" @click="hideAddComponent"></div>
                 </div>
@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="col-md-3" @click="hideEditComponent"></div>
                     <div class="col-md-6">
-                        <EditComponent @updateItem="update" :user="editUser"></EditComponent>
+                        <EditComponent :show-details="showDetails" :form-details="formDetails" @updateItem="update" :user="editUser"></EditComponent>
                     </div>
                     <div class="col-md-3" @click="hideEditComponent"></div>
                 </div>
@@ -73,9 +73,9 @@
 </template>
 
 <script>
-import AddComponent from './users/AddComponent';
-import ShowComponent from './users/ShowComponent';
-import EditComponent from './users/EditComponent';
+import AddComponent from './global/AddComponent';
+import ShowComponent from './global/ShowComponent';
+import EditComponent from './global/EditComponent';
 import alertsComponent from './global/alertsComponent';
 import searchComponent from './global/searchComponent';
 import IndexComponent from './global/IndexComponent';
@@ -176,7 +176,42 @@ export default {
             showDetails : {
                 name : 'User',
                 column : 'name'
-            }
+            },
+            formDetails : [
+                {
+                    name : 'Name' , 
+                    placeholder : 'Write User Name' , 
+                    type : 'text' , 
+                    required : true,
+                    class : 'form-control',
+                    column : 'name'
+                },
+                {
+                    name : 'Email' , 
+                    placeholder : 'Write User email' , 
+                    type : 'email' , 
+                    required : true,
+                    class : 'form-control',
+                    column : 'email'
+                },
+                {
+                    name : 'Password' , 
+                    placeholder : 'Write User Password' , 
+                    type : 'password' , 
+                    required : false,
+                    class : 'form-control',
+                    column : 'password'
+                },
+                {
+                    name : 'Role' , 
+                    placeholder : 'Select User Role' , 
+                    type : 'selectbox' , 
+                    required : true,
+                    class : 'form-control',
+                    column : 'role',
+                    items : [1,2]
+                },
+            ],
         }
     },
     created(){
