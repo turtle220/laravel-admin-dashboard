@@ -1,31 +1,15 @@
 <template>
     <div id="addComponent">
         <div class="card text-white bg-dark">
-            <div class="card-header">Category {{item.name}}</div>
+            <div class="card-header">{{showDetails.name}} {{item[showDetails.column]}}</div>
 
             <div class="card-body">
 
                 <table class="table table-dark table-bordered">
                     <tbody>
-                        <tr>
-                            <th>Name</th>
-                            <td>{{item.name}}</td>
-                        </tr>
-                        <tr>
-                            <th>Email</th>
-                            <td>{{item.email}}</td>
-                        </tr>
-                        <tr>
-                            <th>Is Admin ?!</th>
-                            <td>{{item.role == 1 ? 'Yes' : 'No'}}</td>
-                        </tr>
-                        <tr>
-                            <th>Update Date</th>
-                            <td>{{item.updated_at}}</td>
-                        </tr>
-                        <tr>
-                            <th>Creation Date</th>
-                            <td>{{item.created_at}}</td>
+                        <tr v-for="c in columns" v-bind:key="c">
+                            <th>{{c.name}}</th>
+                            <td>{{item[c.column]}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -43,6 +27,14 @@ export default {
         'item' : {
             type : Object ,
             required : true, 
+        },
+        'showDetails' : {
+            type : Object , 
+            required : true,
+        },
+        "columns" : {
+            type : Array , 
+            require : true,
         }
     },
     data(){

@@ -41,7 +41,7 @@
                 <div class="row">
                     <div class="col-md-3" @click="hideShowComponent"></div>
                     <div class="col-md-6">
-                        <ShowComponent :item="showUser"></ShowComponent>
+                        <ShowComponent :show-details="showDetails" :columns="columns" :item="showUser"></ShowComponent>
                     </div>
                     <div class="col-md-3" @click="hideShowComponent"></div>
                 </div>
@@ -78,7 +78,7 @@ import ShowComponent from './users/ShowComponent';
 import EditComponent from './users/EditComponent';
 import alertsComponent from './global/alertsComponent';
 import searchComponent from './global/searchComponent';
-import IndexComponent from './users/IndexComponent';
+import IndexComponent from './global/IndexComponent';
 import paginationComponent from './global/paginationComponent';
 export default {
     name : "GatewaysDashboard" , 
@@ -121,6 +121,28 @@ export default {
             editUser : {},
             showUser : {},
             localData : {},
+            columns : [
+                {
+                    name : 'Name' , 
+                    column : 'name',
+                },
+                {
+                    name : 'Email' , 
+                    column : 'email',
+                },
+                {
+                    name : 'Role' , 
+                    column : 'role',
+                },
+                {
+                    name : 'Last Update' , 
+                    column : 'updated_at',
+                },
+                {
+                    name : 'Creation Date' , 
+                    column : 'created_at',
+                },
+            ],
             indexColumns : [
                 {
                     name : 'ID' ,
@@ -151,6 +173,10 @@ export default {
             actions : [
                 'DeleteItem' , 'EditItem'
             ],
+            showDetails : {
+                name : 'User',
+                column : 'name'
+            }
         }
     },
     created(){
