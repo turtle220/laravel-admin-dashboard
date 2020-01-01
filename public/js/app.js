@@ -1966,7 +1966,29 @@ __webpack_require__.r(__webpack_exports__);
       showComponent: false,
       editUser: {},
       showUser: {},
-      localData: {}
+      localData: {},
+      indexColumns: [{
+        name: 'ID',
+        column: 'id',
+        "if": false
+      }, {
+        name: 'Name',
+        column: 'name',
+        "if": false
+      }, {
+        name: 'Email',
+        column: 'email',
+        "if": false
+      }, {
+        name: 'Is Admin ?!',
+        column: 'role',
+        "if": true
+      }, {
+        name: 'Last Update',
+        column: 'updated_at',
+        "if": false
+      }],
+      actions: ['DeleteItem', 'EditItem']
     };
   },
   created: function created() {
@@ -2832,32 +2854,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     "users": {
       required: true,
+      type: Array
+    },
+    "actions": {
+      require: true,
+      type: Array
+    },
+    "columns": {
+      require: true,
       type: Array
     }
   },
@@ -56194,7 +56202,11 @@ var render = function() {
         { attrs: { id: "tableSection" } },
         [
           _c("IndexComponent", {
-            attrs: { users: _vm.localData.gw },
+            attrs: {
+              columns: _vm.indexColumns,
+              actions: _vm.actions,
+              users: _vm.localData.gw
+            },
             on: {
               showData: _vm.show,
               DeleteItem: _vm.DeleteItem,
@@ -57289,142 +57301,111 @@ var render = function() {
             "table table-hover table-bordered table-striped table-dark"
         },
         [
-          _vm._m(0),
+          _c("thead", [
+            _c(
+              "tr",
+              [
+                _vm._l(_vm.columns, function(c) {
+                  return _c("th", { key: c.name }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(c.name) +
+                        "\n                    "
+                    )
+                  ])
+                }),
+                _vm._v(" "),
+                _vm.actions.length > 0
+                  ? _c("th", [_vm._v("Actions")])
+                  : _vm._e()
+              ],
+              2
+            )
+          ]),
           _vm._v(" "),
           _c(
             "tbody",
             _vm._l(_vm.users, function(user, index) {
-              return _c("tr", { key: user.id }, [
-                _c("td", [
-                  _c(
-                    "span",
-                    {
-                      staticClass: "text-white",
-                      attrs: { href: user.showUrl },
-                      on: {
-                        click: function($event) {
-                          return _vm.show(index)
-                        }
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(user.id) +
-                          "\n                        "
-                      )
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c(
-                    "span",
-                    {
-                      staticClass: "text-white",
-                      attrs: { href: user.showUrl },
-                      on: {
-                        click: function($event) {
-                          return _vm.show(index)
-                        }
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(user.name) +
-                          "\n                        "
-                      )
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c(
-                    "span",
-                    {
-                      staticClass: "text-white",
-                      attrs: { href: user.showUrl },
-                      on: {
-                        click: function($event) {
-                          return _vm.show(index)
-                        }
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(user.email) +
-                          "\n                        "
-                      )
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c(
-                    "span",
-                    {
-                      staticClass: "text-white",
-                      attrs: { href: user.showUrl },
-                      on: {
-                        click: function($event) {
-                          return _vm.show(index)
-                        }
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(user.role == 1 ? "Yes" : "No") +
-                          "\n                        "
-                      )
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(user.updated_at))]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("div", [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-danger",
-                        attrs: { href: user.deleteUrl },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.$emit("DeleteItem", index)
+              return _c(
+                "tr",
+                { key: user.id },
+                [
+                  _vm._l(_vm.columns, function(c) {
+                    return _c("td", { key: c.column }, [
+                      _c(
+                        "span",
+                        {
+                          staticClass: "text-white",
+                          attrs: { href: user.showUrl },
+                          on: {
+                            click: function($event) {
+                              return _vm.show(index)
+                            }
                           }
-                        }
-                      },
-                      [
-                        _vm._v("Delete "),
-                        _c("i", { staticClass: "fa fa-times fa-fw" })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-info",
-                        attrs: { href: user.editUrl },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.editUser(user.editUrl)
-                          }
-                        }
-                      },
-                      [
-                        _vm._v("Edit "),
-                        _c("i", { staticClass: "fa fa-edit fa-fw" })
-                      ]
-                    )
+                        },
+                        [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(
+                                c.if
+                                  ? user[c.column] == 1
+                                    ? "Yes"
+                                    : "No"
+                                  : user[c.column]
+                              ) +
+                              "\n                        "
+                          )
+                        ]
+                      )
+                    ])
+                  }),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c("div", [
+                      _vm.actions.includes("DeleteItem")
+                        ? _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-danger",
+                              attrs: { href: user.deleteUrl },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.$emit("DeleteItem", index)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v("Delete "),
+                              _c("i", { staticClass: "fa fa-times fa-fw" })
+                            ]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.actions.includes("EditItem")
+                        ? _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-info",
+                              attrs: { href: user.editUrl },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.editUser(user.editUrl)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v("Edit "),
+                              _c("i", { staticClass: "fa fa-edit fa-fw" })
+                            ]
+                          )
+                        : _vm._e()
+                    ])
                   ])
-                ])
-              ])
+                ],
+                2
+              )
             }),
             0
           )
@@ -57433,28 +57414,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("#ID")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Email")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Is Admin ?!")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Last Update")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Actions")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

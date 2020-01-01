@@ -57,7 +57,7 @@
 
         <!-- show data -->
         <div id="tableSection">
-            <IndexComponent :users="localData.gw" @showData="show" @DeleteItem="DeleteItem" @editUser="getEditForm" />
+            <IndexComponent :columns="indexColumns" :actions="actions" :users="localData.gw" @showData="show" @DeleteItem="DeleteItem" @editUser="getEditForm" />
         </div>
 
         <!-- pagination -->
@@ -121,6 +121,36 @@ export default {
             editUser : {},
             showUser : {},
             localData : {},
+            indexColumns : [
+                {
+                    name : 'ID' ,
+                    column : 'id',
+                    if : false,
+                },
+                {
+                    name : 'Name' ,
+                    column : 'name',
+                    if : false,
+                },
+                {
+                    name : 'Email' ,
+                    column : 'email',
+                    if : false,
+                },
+                {
+                    name : 'Is Admin ?!' ,
+                    column : 'role',
+                    if : true,
+                },
+                {
+                    name : 'Last Update',
+                    column : 'updated_at' , 
+                    if : false,
+                }
+            ],
+            actions : [
+                'DeleteItem' , 'EditItem'
+            ],
         }
     },
     created(){

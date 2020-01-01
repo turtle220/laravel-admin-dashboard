@@ -20,6 +20,7 @@ class UsersController extends Controller
         $perpage = !empty($request->perpage) ? $request->perpage : 20;
         $offset  = !empty($request->offset) ? $request->offset : 0;
         $search  = !empty($request->search) ? $request->search : false;
+        $order   = !empty($request->search) ? $request->order : false;
         $api     = !empty($request->api) ? true : false;
 
         if($search){
@@ -36,6 +37,9 @@ class UsersController extends Controller
             ->orWhere('created_at' , 'LIKE' , '%'.$search.'%')
             ->orWhere('updated_at' , 'LIKE' , '%'.$search.'%')
             ->count();
+        }elseif($order){
+            $data = User::limit($perpage)->offset($offset)->orderBy($order , $request->orderWay)->get();
+            $total = User::count();
         }else{
             $data = User::limit($perpage)->offset($offset)->orderBy('updated_at' , 'DESC')->get();
             $total = User::count();

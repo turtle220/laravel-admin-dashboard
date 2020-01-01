@@ -4,46 +4,24 @@
             <table class="table table-hover table-bordered table-striped table-dark">
                 <thead>
                     <tr>
-                        <th>#ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Is Admin ?!</th>
-                        <th>Last Update</th>
-                        <th>Actions</th>
+                        <th v-for="c in columns" v-bind:key="c.name">
+                            {{c.name}}
+                        </th>
+                        <th v-if="actions.length > 0">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(user , index) in users" v-bind:key="user.id">
-                        <td>
+                        <td v-for="c in columns" v-bind:key="c.column">
                             <span class="text-white" :href="user.showUrl" @click="show(index)">
-                                {{user.id}}
+                                {{c.if ? user[c.column] == 1 ? 'Yes' : 'No' : user[c.column]}}
                             </span>
                         </td>
-
-                        <td>
-                            <span class="text-white" :href="user.showUrl" @click="show(index)">
-                                {{user.name}}
-                            </span>
-                        </td>
-                        
-                        <td>
-                            <span class="text-white" :href="user.showUrl" @click="show(index)">
-                                {{user.email}}
-                            </span>
-                        </td>
-
-                        <td>
-                            <span class="text-white" :href="user.showUrl" @click="show(index)">
-                                {{user.role == 1 ? 'Yes' : 'No'}}
-                            </span>
-                        </td>
-
-                        <td>{{user.updated_at}}</td>
 
                         <td>
                             <div>
-                                <a @click.prevent="$emit('DeleteItem' , index)" :href="user.deleteUrl" class="btn btn-danger">Delete <i class="fa fa-times fa-fw"></i></a>
-                                <a :href="user.editUrl" @click.prevent="editUser(user.editUrl)" class="btn btn-info">Edit <i class="fa fa-edit fa-fw"></i></a>
+                                <a @click.prevent="$emit('DeleteItem' , index)" v-if="actions.includes('DeleteItem')" :href="user.deleteUrl" class="btn btn-danger">Delete <i class="fa fa-times fa-fw"></i></a>
+                                <a :href="user.editUrl" @click.prevent="editUser(user.editUrl)" v-if="actions.includes('EditItem')" class="btn btn-info">Edit <i class="fa fa-edit fa-fw"></i></a>
                             </div>
                         </td>
                     </tr>
@@ -61,6 +39,14 @@ export default {
             required : true,
             type : Array
         },
+        "actions" : {
+            require : true , 
+            type : Array,
+        },
+        "columns" : {
+            require : true , 
+            type : Array,
+        }
     },
     name : 'IndexComponent' ,
     data(){
