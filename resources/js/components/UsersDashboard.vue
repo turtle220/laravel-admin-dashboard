@@ -3,6 +3,20 @@
         <!-- show add form -->
         <div id="AddSettingsButton">
             <button class="btn btn-success" @click="addForm = !addForm">Toggle Add User</button>
+        
+            <a class="btn btn-info" :href="urls.exportUrl" target="_blank">
+                Export Users
+            </a>
+
+            <span id="importSection">
+                <form :action="urls.importUrl" method="post" ref="import" enctype="multipart/form-data">
+                    <input type="file" name="file" @change="$refs.import.submit()">
+                    <input type="hidden" name="_token" :value="csrf">
+                    <button class="btn btn-warning">
+                        Import Users
+                    </button>
+                </form>
+            </span>
         </div>
 
         <!-- add form -->
@@ -409,6 +423,21 @@ export default {
 
 <style lang="scss" scoped>
 #LinksDashboard{
+    #importSection{
+        cursor: pointer;
+        form{
+            position: relative;
+            display : inline-block;
+            input{
+                position : absolute;
+                cursor: pointer;
+                z-index : 11111;
+                opacity: 0;
+                width : 100%;
+                height : 100%;
+            }
+        }
+    }
     .overlay{
         position: fixed;
         top : 0px;

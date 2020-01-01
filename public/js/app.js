@@ -1919,6 +1919,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -7565,7 +7579,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#LinksDashboard[data-v-8f1ccad2] {\n  /******************alerts section */\n}\n#LinksDashboard .overlay[data-v-8f1ccad2] {\n  position: fixed;\n  top: 0px;\n  left: 0px;\n  z-index: -1;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.418);\n}\n#LinksDashboard #addForm[data-v-8f1ccad2] {\n  position: fixed;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n  z-index: 100000;\n  display: -webkit-box;\n  display: flex;\n  -webkit-transition: all 0.5s;\n  transition: all 0.5s;\n  -webkit-box-align: center;\n          align-items: center;\n}\n#LinksDashboard #addForm .row[data-v-8f1ccad2] {\n  -webkit-box-flex: 1;\n          flex: 1;\n}\n#LinksDashboard .addform-enter[data-v-8f1ccad2], #LinksDashboard .addform-leave-to[data-v-8f1ccad2] {\n  opacity: 0;\n  -webkit-transform: translateY(30px);\n          transform: translateY(30px);\n}\n#LinksDashboard .addform-leave-active[data-v-8f1ccad2] {\n  position: absolute;\n}\n#LinksDashboard #alertsContainer[data-v-8f1ccad2] {\n  position: fixed;\n  z-index: 10000000000;\n  left: 10px;\n  bottom: 10px;\n  width: 300px;\n}\n#LinksDashboard #addButton[data-v-8f1ccad2], #LinksDashboard #pagination[data-v-8f1ccad2] {\n  display: inline-block;\n}\n#LinksDashboard #pagination[data-v-8f1ccad2] {\n  float: right;\n}", ""]);
+exports.push([module.i, "#LinksDashboard[data-v-8f1ccad2] {\n  /******************alerts section */\n}\n#LinksDashboard #importSection[data-v-8f1ccad2] {\n  cursor: pointer;\n}\n#LinksDashboard #importSection form[data-v-8f1ccad2] {\n  position: relative;\n  display: inline-block;\n}\n#LinksDashboard #importSection form input[data-v-8f1ccad2] {\n  position: absolute;\n  cursor: pointer;\n  z-index: 11111;\n  opacity: 0;\n  width: 100%;\n  height: 100%;\n}\n#LinksDashboard .overlay[data-v-8f1ccad2] {\n  position: fixed;\n  top: 0px;\n  left: 0px;\n  z-index: -1;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.418);\n}\n#LinksDashboard #addForm[data-v-8f1ccad2] {\n  position: fixed;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n  z-index: 100000;\n  display: -webkit-box;\n  display: flex;\n  -webkit-transition: all 0.5s;\n  transition: all 0.5s;\n  -webkit-box-align: center;\n          align-items: center;\n}\n#LinksDashboard #addForm .row[data-v-8f1ccad2] {\n  -webkit-box-flex: 1;\n          flex: 1;\n}\n#LinksDashboard .addform-enter[data-v-8f1ccad2], #LinksDashboard .addform-leave-to[data-v-8f1ccad2] {\n  opacity: 0;\n  -webkit-transform: translateY(30px);\n          transform: translateY(30px);\n}\n#LinksDashboard .addform-leave-active[data-v-8f1ccad2] {\n  position: absolute;\n}\n#LinksDashboard #alertsContainer[data-v-8f1ccad2] {\n  position: fixed;\n  z-index: 10000000000;\n  left: 10px;\n  bottom: 10px;\n  width: 300px;\n}\n#LinksDashboard #addButton[data-v-8f1ccad2], #LinksDashboard #pagination[data-v-8f1ccad2] {\n  display: inline-block;\n}\n#LinksDashboard #pagination[data-v-8f1ccad2] {\n  float: right;\n}", ""]);
 
 // exports
 
@@ -56183,7 +56197,49 @@ var render = function() {
             }
           },
           [_vm._v("Toggle Add User")]
-        )
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "btn btn-info",
+            attrs: { href: _vm.urls.exportUrl, target: "_blank" }
+          },
+          [_vm._v("\n            Export Users\n        ")]
+        ),
+        _vm._v(" "),
+        _c("span", { attrs: { id: "importSection" } }, [
+          _c(
+            "form",
+            {
+              ref: "import",
+              attrs: {
+                action: _vm.urls.importUrl,
+                method: "post",
+                enctype: "multipart/form-data"
+              }
+            },
+            [
+              _c("input", {
+                attrs: { type: "file", name: "file" },
+                on: {
+                  change: function($event) {
+                    return _vm.$refs.import.submit()
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("input", {
+                attrs: { type: "hidden", name: "_token" },
+                domProps: { value: _vm.csrf }
+              }),
+              _vm._v(" "),
+              _c("button", { staticClass: "btn btn-warning" }, [
+                _vm._v("\n                    Import Users\n                ")
+              ])
+            ]
+          )
+        ])
       ]),
       _vm._v(" "),
       _c("transition", { attrs: { name: "addform" } }, [

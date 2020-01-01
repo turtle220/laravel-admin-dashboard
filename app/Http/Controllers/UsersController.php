@@ -8,7 +8,14 @@ class UsersController extends Controller
 {
     // route name
     private $r = 'user';
-    private $rs = 'users';    
+    private $rs = 'users';  
+    private $database = 'User';  
+
+
+    public function __construct(){
+        $this->database = app('App\\'.$this->database);
+    }
+
     /**
         * Display a listing of the resource.
         *
@@ -25,24 +32,24 @@ class UsersController extends Controller
 
         if($search){
             $search = explode('||' , $search)[0];
-            $data = User::limit($perpage)->offset($offset)->orderBy('updated_at' , 'DESC')
+            $data = $this->database::limit($perpage)->offset($offset)->orderBy('updated_at' , 'DESC')
             ->where('name' , 'LIKE' , '%'.$search.'%')
             ->orWhere('email' , 'LIKE' , '%'.$search.'%')
             ->orWhere('created_at' , 'LIKE' , '%'.$search.'%')
             ->orWhere('updated_at' , 'LIKE' , '%'.$search.'%')
             ->get();
-            $total = User::orderBy('updated_at' , 'DESC')
+            $total = $this->database::orderBy('updated_at' , 'DESC')
             ->where('name' , 'LIKE' , '%'.$search.'%')
             ->orWhere('email' , 'LIKE' , '%'.$search.'%')
             ->orWhere('created_at' , 'LIKE' , '%'.$search.'%')
             ->orWhere('updated_at' , 'LIKE' , '%'.$search.'%')
             ->count();
         }elseif($order){
-            $data = User::limit($perpage)->offset($offset)->orderBy($order , $request->orderBy)->get();
-            $total = User::count();
+            $data = $this->database::limit($perpage)->offset($offset)->orderBy($order , $request->orderBy)->get();
+            $total = $this->database::count();
         }else{
-            $data = User::limit($perpage)->offset($offset)->orderBy('updated_at' , 'DESC')->get();
-            $total = User::count();
+            $data = $this->database::limit($perpage)->offset($offset)->orderBy('updated_at' , 'DESC')->get();
+            $total = $this->database::count();
         }
 
         $data = $data->map(function($item){
@@ -108,7 +115,7 @@ class UsersController extends Controller
         /**
             * check if uniquer
             */
-        $item = User::create($request->all());
+        $item = $this->database::create($request->all());
         $id = $item->id;
         $item->showUrl = route($this->r.'.show' , ['id' => $id]);
         $item->editUrl = route($this->r.'.edit' , ['id' => $id]);
@@ -121,7 +128,7 @@ class UsersController extends Controller
         * get update form
         */
     public function edit($id){
-        $item = User::find($id);
+        $item = $this->database::find($id);
 
         if($item->count() > 0){
             $item->showUrl = route($this->r.'.show' , ['id' => $id]);
@@ -162,10 +169,10 @@ class UsersController extends Controller
         /**
         * check if uniquer
         */
-        $item = User::where('email' , '=' , $request->value)->get();
+        $item = $this->database::where('email' , '=' , $request->value)->get();
 
         if($item->count() < 2){
-            $item = User::find($id);
+            $item = $this->database::find($id);
             $item->update($data);
             $item->showUrl = route($this->r.'.show' , ['id' => $id]);
             $item->editUrl = route($this->r.'.edit' , ['id' => $id]);
@@ -181,7 +188,52 @@ class UsersController extends Controller
         * remove vendor
         */
     public function destroy($id){
-        User::find($id)->delete();
+        $this->database::find($id)->delete();
         return response()->json(['success' => 'User Deleted Successfully'] , 200);
     }
+
+    /**
+     * export all 
+     */
+    public function exportAll(){
+        $data  = json_encode($this->database::all());
+
+        $files = glob(public_path()."/upload/json/*"); // get all file names
+
+        foreach($files as $file){ // iterate files
+            if(is_file($file)){
+                unlink($file); // delete file
+            }
+        }
+
+        $file = time() . '_users.json';
+        
+        $destinationPath=public_path()."/upload/json/";
+        
+        // create the direction
+        if (!is_dir($destinationPath)) {  mkdir($destinationPath,0777,true);  }
+        
+        \File::put($destinationPath.$file,$data);
+
+        return response()->download($destinationPath.$file);
+    }
+
+
+    /**
+     * import 
+     */
+    public function importJson(Request $request){
+        $allData = json_decode(file_get_contents($request->file('file')->getRealPath()) , true);
+        foreach($allData as $data){
+            $checker = $this->database::where('name' , '=' , $data['name'])->get();
+
+            if($checker->count() > 0){
+                continue;
+            }
+            $this->database::create($data);
+        }
+
+        return redirect()->back();
+    }
+
 }

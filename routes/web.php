@@ -40,6 +40,8 @@ Route::group(['middleware' => ['\App\Http\Middleware\Admin']] , function(){
     Route::post('/user/update/{id}' , 'UsersController@update')->name('user.update');
     // delete
     Route::post('/user/delete/{id}' , 'UsersController@destroy')->name('user.delete');
-
-
+    // export
+    Route::get('/users/export/all' , 'UsersController@exportAll')->name('users.export');
+    // import
+    Route::get('/users/import' , 'UsersController@importJson')->name('users.import');
 });

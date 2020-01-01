@@ -11,7 +11,9 @@
                 "searchPhrase" => $search
             ])}}"
             :urls="{{json_encode([
-                'addUrl' => route('user.store')
+                'addUrl' => route('user.store'),
+                'exportUrl' => route('users.export'),
+                'importUrl' => route('users.import'),
             ])}}"
             :pagination="{{json_encode([
                 'total' => $total ,
