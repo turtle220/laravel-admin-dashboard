@@ -25,7 +25,7 @@
                 <div class="row">
                     <div class="col-md-3" @click="hideAddComponent"></div>
                     <div class="col-md-6">
-                        <add-component :show-details="showDetails" :form-details="formDetails" @storeData="store"></add-component>
+                        <DynamicForms :show-details="showDetails" :title="`Add New User`" :button="{title:'Add User'}" :form="formDetails" @updateItem="update" @save="store"></DynamicForms>
                     </div>
                     <div class="col-md-3" @click="hideAddComponent"></div>
                 </div>
@@ -40,7 +40,7 @@
                 <div class="row">
                     <div class="col-md-3" @click="hideEditComponent"></div>
                     <div class="col-md-6">
-                        <EditComponent :show-details="showDetails" :form-details="formDetails" @updateItem="update" :user="editUser"></EditComponent>
+                        <DynamicForms :show-details="showDetails" :title="`Edit User ${editUser.name}`" :button="{title:'Edit User'}" :form="formDetails" @updateItem="update" :values="editUser" @save="update"></DynamicForms>
                     </div>
                     <div class="col-md-3" @click="hideEditComponent"></div>
                 </div>
@@ -94,6 +94,9 @@ import alertsComponent from './global/alertsComponent';
 import searchComponent from './global/searchComponent';
 import IndexComponent from './global/IndexComponent';
 import paginationComponent from './global/paginationComponent';
+
+import DynamicForms from 'vuejs-dynamic-forms';
+
 export default {
     name : "GatewaysDashboard" , 
     props : {
@@ -122,6 +125,7 @@ export default {
         'IndexComponent' : IndexComponent,
         'paginationComponent' : paginationComponent,
         'EditComponent'     : EditComponent,
+        'DynamicForms' : DynamicForms,
     },
     data(){
         return { 
