@@ -1,5 +1,5 @@
 <template>
-    <div id="LinksDashboard">
+    <div id="LinksDashboard" class="Dashboard">
         <!-- show add form -->
         <div id="AddSettingsButton">
             <button class="btn btn-success" @click="addForm = !addForm">Toggle Add User</button>
@@ -25,7 +25,7 @@
                 <div class="row">
                     <div class="col-md-3" @click="hideAddComponent"></div>
                     <div class="col-md-6">
-                        <DynamicForms :show-details="showDetails" :title="`Add New User`" :button="{title:'Add User'}" :form="formDetails" @updateItem="update" @save="store"></DynamicForms>
+                        <DynamicForms :show-details="showDetails" :values="{}" :title="`Add New User`" :button="{title:'Add User'}" :form="formDetails" @updateItem="update" @save="store"></DynamicForms>
                     </div>
                     <div class="col-md-3" @click="hideAddComponent"></div>
                 </div>
@@ -425,72 +425,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-#LinksDashboard{
-    #importSection{
-        cursor: pointer;
-        form{
-            position: relative;
-            display : inline-block;
-            input{
-                position : absolute;
-                cursor: pointer;
-                z-index : 11111;
-                opacity: 0;
-                width : 100%;
-                height : 100%;
-            }
-        }
-    }
-    .overlay{
-        position: fixed;
-        top : 0px;
-        left : 0px;
-        z-index : -1;
-        width : 100%;
-        height : 100%;
-        background-color : rgba(0, 0, 0, 0.418);
-    }
-    #addForm{
-        position: fixed;
-        top : 0px;
-        left : 0px;
-        width : 100%;
-        height : 100%;
-        z-index : 100000;
-        display : flex;
-        transition: all 0.5s;
-        align-items: center;
-        .row{
-            flex : 1;
-        }
-    }
-    .addform-enter, .addform-leave-to
-    /* .list-complete-leave-active below version 2.1.8 */ {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    .addform-leave-active{
-        position: absolute;
-    }
-
-    /******************alerts section */
-    #alertsContainer{
-        position: fixed;
-        z-index : 10000000000;
-        left : 10px;
-        bottom : 10px;
-        width : 300px;
-    }
-
-
-    // pagination and add button
-    #addButton , #pagination{
-        display : inline-block;
-    }
-    #pagination{
-        float : right;
-    }
-}
-</style>

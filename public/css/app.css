@@ -45,6 +45,86 @@
   }
 }
 
+.Dashboard {
+  /******************alerts section */
+}
+
+.Dashboard #importSection {
+  cursor: pointer;
+}
+
+.Dashboard #importSection form {
+  position: relative;
+  display: inline-block;
+}
+
+.Dashboard #importSection form input {
+  position: absolute;
+  cursor: pointer;
+  z-index: 11111;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.Dashboard .overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.418);
+}
+
+.Dashboard #addForm {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 100000;
+  display: flex;
+  transition: all 0.5s;
+  align-items: center;
+}
+
+.Dashboard #addForm .row {
+  flex: 1;
+}
+
+.Dashboard #VuejsDynamicForms {
+  max-height: 90vh;
+  overflow: auto;
+}
+
+.Dashboard .addform-enter,
+.Dashboard .addform-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.Dashboard .addform-leave-active {
+  position: absolute;
+}
+
+.Dashboard #alertsContainer {
+  position: fixed;
+  z-index: 10000000000;
+  left: 10px;
+  bottom: 10px;
+  width: 300px;
+}
+
+.Dashboard #addButton,
+.Dashboard #pagination {
+  display: inline-block;
+}
+
+.Dashboard #pagination {
+  float: right;
+}
+
 @keyframes swing {
   0% {
     transform: rotate(0deg);

@@ -21,6 +21,7 @@ require('./sidebar');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('users-dashboard', require('./components/UsersDashboard.vue').default);
+Vue.component('donates-dashboard', require('./components/DonatesDashboard.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

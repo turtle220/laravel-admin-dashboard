@@ -138,6 +138,12 @@
                                 </a>
                             </li>
 
+                            <li>
+                                <a href="{{route('donates')}}">
+                                    <i class="fa fa-donate"></i>
+                                    <span>Manage Donates</span>
+                                </a>
+                            </li>
 
                             {{-- <li>
                                 <a href="{{route('states')}}">

@@ -44,4 +44,25 @@ Route::group(['middleware' => ['\App\Http\Middleware\Admin']] , function(){
     Route::get('/users/export/all' , 'UsersController@exportAll')->name('users.export');
     // import
     Route::post('/users/import' , 'UsersController@importJson')->name('users.import');
+
+
+    /**
+     * donatings routes
+     */
+    Route::get('/donates' , 'DonatesController@index')->name('donates');
+    // store
+    Route::post('/donate/store' , 'DonatesController@store')->name('donate.store');
+    // show
+    Route::get('/donate/show/{id}' , 'DonatesController@show')->name('donate.show');
+    // edit
+    Route::get('/donate/edit/{id}' , 'DonatesController@edit')->name('donate.edit');
+    // update
+    Route::post('/donate/update/{id}' , 'DonatesController@update')->name('donate.update');
+    // delete
+    Route::post('/donate/delete/{id}' , 'DonatesController@destroy')->name('donate.delete');
+    // export
+    Route::get('/donates/export/all' , 'DonatesController@exportAll')->name('donates.export');
+    // import
+    Route::post('/donates/import' , 'DonatesController@importJson')->name('donates.import');
+
 });
