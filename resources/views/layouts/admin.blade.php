@@ -145,6 +145,14 @@
                                 </a>
                             </li>
 
+                            <li>
+                                <a href="{{route('DonatesCounter')}}">
+                                    <i class="fa fa-donate"></i>
+                                    <span>Manage Donates Counter</span>
+                                </a>
+                            </li>
+
+
                             {{-- <li>
                                 <a href="{{route('states')}}">
                                     <i class="fa fa-city"></i>

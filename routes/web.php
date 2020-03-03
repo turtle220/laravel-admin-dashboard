@@ -65,4 +65,25 @@ Route::group(['middleware' => ['\App\Http\Middleware\Admin']] , function(){
     // import
     Route::post('/donates/import' , 'DonatesController@importJson')->name('donates.import');
 
+
+
+    /**
+     * donatings routes
+     */
+    Route::get('/DonatesCounter' , 'DonatesCounterController@index')->name('DonatesCounter');
+    // store
+    Route::post('/DonateCounter/store' , 'DonatesCounterController@store')->name('DonateCounter.store');
+    // show
+    Route::get('/DonateCounter/show/{id}' , 'DonatesCounterController@show')->name('DonateCounter.show');
+    // edit
+    Route::get('/DonateCounter/edit/{id}' , 'DonatesCounterController@edit')->name('DonateCounter.edit');
+    // update
+    Route::post('/DonateCounter/update/{id}' , 'DonatesCounterController@update')->name('DonateCounter.update');
+    // delete
+    Route::post('/DonateCounter/delete/{id}' , 'DonatesCounterController@destroy')->name('DonateCounter.delete');
+    // export
+    Route::get('/DonatesCounter/export/all' , 'DonatesCounterController@exportAll')->name('DonatesCounter.export');
+    // import
+    Route::post('/DonatesCounter/import' , 'DonatesCounterController@importJson')->name('DonatesCounter.import');
+
 });

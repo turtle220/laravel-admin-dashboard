@@ -22,6 +22,7 @@ require('./sidebar');
 
 Vue.component('users-dashboard', require('./components/UsersDashboard.vue').default);
 Vue.component('donates-dashboard', require('./components/DonatesDashboard.vue').default);
+Vue.component('donatescounter-dashboard', require('./components/DonatesCounterDashboard.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
